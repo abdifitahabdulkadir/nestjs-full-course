@@ -1,0 +1,26 @@
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
+export class StudentService {
+  students = [
+    {
+      id: 1,
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+    },
+    {
+      id: 2,
+      name: 'Jane Doe',
+      email: 'jane.doe@example.com',
+    },
+    {
+      id: 3,
+      name: 'Jim Doe',
+      email: 'jim.doe@example.com',
+    },
+  ];
+
+  getStudents() {
+    return this.students;
+  }
+}
