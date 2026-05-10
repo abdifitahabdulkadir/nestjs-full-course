@@ -1,5 +1,5 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import middleware1, { AppMiddleware } from 'middleware';
+import { Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { AppMiddleware } from 'middleware';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatsModule } from './cats/cats.module';
@@ -10,7 +10,7 @@ import { StudentModule } from './student/student.module';
 @Module({
   imports: [CatsModule, CustomerModule, StudentModule, GlobalModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, Logger],
 })
 
 /**
@@ -29,6 +29,6 @@ export class AppModule implements NestModule {
    * we can pass a string to forRoutes to apply the middleware to all routes.
    **/
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AppMiddleware, middleware1).forRoutes('*');
+    consumer.apply(AppMiddleware).forRoutes('*');
   }
 }
