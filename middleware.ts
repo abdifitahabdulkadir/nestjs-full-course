@@ -27,14 +27,14 @@ import { NextFunction, Request, Response } from 'express';
  */
 export class AppMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction): void {
-    console.log('Loggiing from the AppMiddleware class based middleware');
+    // console.log('Loggiing from the AppMiddleware class based middleware');
     next();
   }
 }
 
 export class CatsMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction): void {
-    console.log('Loggiing from the CatsMiddleware class based middleware');
+    // console.log('Loggiing from the CatsMiddleware class based middleware');
     next();
   }
 }

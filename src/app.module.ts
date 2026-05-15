@@ -1,4 +1,5 @@
 import { Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppMiddleware } from 'middleware';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -8,7 +9,13 @@ import { GlobalModule } from './global/global.module';
 import { StudentModule } from './student/student.module';
 
 @Module({
-  imports: [CatsModule, CustomerModule, StudentModule, GlobalModule],
+  imports: [
+    CatsModule,
+    CustomerModule,
+    StudentModule,
+    GlobalModule,
+    ConfigModule.forRoot(),
+  ],
   controllers: [AppController],
   providers: [AppService, Logger],
 })
