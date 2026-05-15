@@ -1,4 +1,5 @@
-import { Injectable, Scope } from '@nestjs/common';
+import { Injectable, NotFoundException, Scope } from '@nestjs/common';
+import { CreateCatDTO, UpdateCatDTO } from 'src/dtos/cats.dto';
 
 /**
  * we can specify the behaviour of the service
@@ -17,17 +18,45 @@ export class CatsService {
     {
       name: 'Memow',
       age: 2,
+      breed: 'Siamese',
+      id: 1,
     },
     {
       name: 'Memow',
       age: 2,
+      breed: 'Siamese',
+      id: 2,
     },
     {
       name: 'Memow',
       age: 2,
+      breed: 'Siamese',
+      id: 3,
     },
   ];
+
+  createCat(cat: CreateCatDTO) {
+    this.cats.push({
+      ...cat,
+      id: this.cats.length + 1,
+    });
+    return this.cats;
+  }
+
   getCats() {
     return this.cats;
+  }
+
+  getCat(id: number) {
+    return this.cats.find((cat) => cat.id === id);
+  }
+
+  updateCat(id: number, cat: UpdateCatDTO) {
+    const index = this.cats.findIndex((cat) => cat.id === id);
+    if (index === -1) {
+      throw new NotFoundException('Cat not found');
+    }
+    this.cats[index] = { ...this.cats[index], ...cat };
+    return this.cats[index];
   }
 }

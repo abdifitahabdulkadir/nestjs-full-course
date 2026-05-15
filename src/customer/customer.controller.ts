@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, ParseIntPipe, Query } from '@nestjs/common';
 import { CatsService } from 'src/cats/cats.service';
 import { CustomerService } from './customer.service';
 
@@ -9,8 +9,16 @@ export class CustomerController {
     private catsService: CatsService,
   ) {}
 
+  /**
+   * pipes operates on argumenta of the router handler
+   * and trnasform or validate then based on the result
+   * it gets to handler to furhter process. and can be
+   * rejected or shor-circutied.
+   */
   @Get()
-  getCustomers() {
+  getCustomers(@Query('limit', ParseIntPipe) limit: number) {
+    console.log('type of limit', typeof limit);
+
     return this.customerService.getCustomers();
   }
 
