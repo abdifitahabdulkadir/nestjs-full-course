@@ -2,12 +2,14 @@ import {
   Body,
   Controller,
   Get,
+  Headers,
   Param,
   ParseIntPipe,
   Patch,
   Post,
   Req,
   UseGuards,
+  UseInterceptors,
   UsePipes,
 } from '@nestjs/common';
 import type { Request } from 'express';
@@ -21,6 +23,7 @@ import {
 } from 'src/dtos/cats.dto';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { AuthorizationGuard } from 'src/guards/authorization.guard';
+import { CustomInterceptor } from 'src/interceptors/interceptor';
 import { ValidationPipe } from 'src/pipes/pipes.pipe';
 import { CatsService } from './cats.service';
 
@@ -28,14 +31,16 @@ import { CatsService } from './cats.service';
 @UseGuards(AuthGuard, AuthorizationGuard)
 @Controller('cats')
 @Roles(Role.Admin)
+@UseInterceptors(CustomInterceptor)
 export class CatsController {
   constructor(private cats: CatsService) {}
 
   @Get()
   // @UseGuards(AuthGuard) // only applies to this endpoint
-  getCats(@Req() request: Request) {
+  getCats(@Req() request: Request, @Headers('accept-language') acceptLnaguage) {
     console.log('From contrller level getCats: ', request.body.user);
-
+    console.log('Accept Language: ', acceptLnaguage);
+    console.log(request.headers['accept-language']);
     /**
      * this is handled exception and by default
      * nestjs will catch it and return a 500 error.
