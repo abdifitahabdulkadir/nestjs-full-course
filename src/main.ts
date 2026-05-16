@@ -1,4 +1,5 @@
 import { Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './exception/gloabal-exception';
@@ -9,6 +10,9 @@ async function bootstrap() {
   // app.use(middleware1);
   app.useGlobalFilters(new HttpExceptionFilter(new Logger()));
 
-  await app.listen(process.env.PORT ?? 3000);
+  // you can get any service you have registered in the module.
+  const config = app.get(ConfigService);
+
+  await app.listen(config.get<string>('PORT') || 3000);
 }
 bootstrap();

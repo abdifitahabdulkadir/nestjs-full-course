@@ -1,6 +1,7 @@
 import { Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppMiddleware } from 'middleware';
+import z from 'zod';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatsModule } from './cats/cats.module';
@@ -14,7 +15,18 @@ import { StudentModule } from './student/student.module';
     CustomerModule,
     StudentModule,
     GlobalModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      cache: true,
+      isGlobal: true,
+      validate(config) {
+        return z
+          .object({
+            JWT_SECRET_KEY: z.string(),
+            PORT: z.literal('3000', { message: 'PORT must be 3000' }),
+          })
+          .parse(config);
+      },
+    }),
   ],
   controllers: [AppController],
   providers: [AppService, Logger],
