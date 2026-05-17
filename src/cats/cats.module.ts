@@ -1,8 +1,7 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { CatsMiddleware } from 'middleware';
-import { CatsController } from './cats.controller';
-import { CatsService } from './cats.service';
+import { CatsController } from './cats.controller.js';
+import { CatsService } from './cats.service.js';
 
 @Module({
   imports: [
@@ -21,8 +20,4 @@ import { CatsService } from './cats.service';
   controllers: [CatsController],
   exports: [CatsService],
 })
-export class CatsModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(CatsMiddleware).forRoutes('/cats');
-  }
-}
+export class CatsModule {}

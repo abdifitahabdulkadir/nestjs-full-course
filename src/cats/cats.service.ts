@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, Scope } from '@nestjs/common';
-import { CreateCatDTO, UpdateCatDTO } from 'src/dtos/cats.dto';
+import { CreateCatDTO, UpdateCatDTO } from '../dtos/cats.dto.js';
 
 /**
  * we can specify the behaviour of the service

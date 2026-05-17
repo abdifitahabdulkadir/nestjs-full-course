@@ -6,9 +6,9 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import type { Request } from 'express';
-import { Role } from 'roles.enum';
+import { Role } from '../../roles.enum.js';
 import { Observable } from 'rxjs';
-import { ROLES_KEY } from 'src/decorators/role.decorater';
+import { ROLES_KEY } from '../decorators/role.decorater.js';
 @Injectable()
 export class AuthorizationGuard implements CanActivate {
   constructor(private reflector: Reflector) {}

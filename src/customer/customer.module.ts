@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { CustomerController } from './customer.controller';
-import { CustomerService } from './customer.service';
+import { CustomerController } from './customer.controller.js';
+import { CustomerService } from './customer.service.js';
 
 @Module({
   // we disabled becase we made gloabl the cats Service.

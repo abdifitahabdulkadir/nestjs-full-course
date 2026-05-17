@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
-import { CatsService } from 'src/cats/cats.service';
-import { StudentService } from './student.service';
+import { CatsService } from '../cats/cats.service.js';
+import { StudentService } from './student.service.js';
 
 @Controller('student')
 export class StudentController {

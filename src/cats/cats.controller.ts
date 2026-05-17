@@ -13,19 +13,19 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import type { Request } from 'express';
-import { Role } from 'roles.enum';
-import { Roles } from 'src/decorators/role.decorater';
+import { Role } from '../../roles.enum.js';
+import { Roles } from '../decorators/role.decorater.js';
 import {
   type CreateCatDTO,
   createCatSchema,
   type UpdateCatDTO,
   updateCatSchema,
-} from 'src/dtos/cats.dto';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { AuthorizationGuard } from 'src/guards/authorization.guard';
-import { CustomInterceptor } from 'src/interceptors/interceptor';
-import { ValidationPipe } from 'src/pipes/pipes.pipe';
-import { CatsService } from './cats.service';
+} from '../dtos/cats.dto.js';
+import { AuthGuard } from '../guards/auth.guard.js';
+import { AuthorizationGuard } from '../guards/authorization.guard.js';
+import { CustomInterceptor } from '../interceptors/interceptor.js';
+import { ValidationPipe } from '../pipes/pipes.pipe.js';
+import { CatsService } from './cats.service.js';
 
 // it will call in order we have specified.
 @UseGuards(AuthGuard, AuthorizationGuard)

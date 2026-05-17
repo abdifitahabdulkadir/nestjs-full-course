@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: nest-container
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: nest-db
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib
+
+volumes:
+  postgres_data:

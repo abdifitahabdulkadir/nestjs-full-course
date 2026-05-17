@@ -1,13 +1,13 @@
-import { Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AppMiddleware } from 'middleware';
 import z from 'zod';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { CatsModule } from './cats/cats.module';
-import { CustomerModule } from './customer/customer.module';
-import { GlobalModule } from './global/global.module';
-import { StudentModule } from './student/student.module';
+import { AppController } from './app.controller.js';
+import { AppService } from './app.service.js';
+import { CatsModule } from './cats/cats.module.js';
+import { CustomerModule } from './customer/customer.module.js';
+import { DatabaseModule } from './database/database.module.js';
+import { GlobalModule } from './global/global.module.js';
+import { StudentModule } from './student/student.module.js';
 
 @Module({
   imports: [
@@ -23,14 +23,17 @@ import { StudentModule } from './student/student.module';
           .object({
             JWT_SECRET_KEY: z.string(),
             PORT: z.literal('3000', { message: 'PORT must be 3000' }),
+            DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
           })
           .parse(config);
       },
     }),
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService, Logger],
 })
+export class AppModule {}
 
 /**
  * this is the module class that implements NestModule interface.
@@ -40,14 +43,14 @@ import { StudentModule } from './student/student.module';
  */
 
 // class based is bettter when you have dependencies on other modules.
-export class AppModule implements NestModule {
-  /**
-   * Attaches either routes or controllers
-   * to the current middleware. If you pass a controller class,
-   * Nest will attach the current middleware to every path defined within it.
-   * we can pass a string to forRoutes to apply the middleware to all routes.
-   **/
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AppMiddleware).forRoutes('*');
-  }
-}
+// export class AppModule implements NestModule {
+/**
+ * Attaches either routes or controllers
+ * to the current middleware. If you pass a controller class,
+ * Nest will attach the current middleware to every path defined within it.
+ * we can pass a string to forRoutes to apply the middleware to all routes.
+ **/
+//   configure(consumer: MiddlewareConsumer) {
+//     consumer.apply(AppMiddleware).forRoutes('*');
+//   }
+// }

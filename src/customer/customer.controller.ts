@@ -1,6 +1,6 @@
 import { Controller, Get, ParseIntPipe, Query } from '@nestjs/common';
-import { CatsService } from 'src/cats/cats.service';
-import { CustomerService } from './customer.service';
+import { CatsService } from '../cats/cats.service.js';
+import { CustomerService } from './customer.service.js';
 
 @Controller('customer')
 export class CustomerController {

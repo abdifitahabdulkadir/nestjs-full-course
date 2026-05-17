@@ -1,5 +1,5 @@
 import { Global, Module } from '@nestjs/common';
-import { CatsService } from 'src/cats/cats.service';
+import { CatsService } from '../cats/cats.service.js';
 
 /**
  * we have gloabl module means we can register any service/module as gloabl
