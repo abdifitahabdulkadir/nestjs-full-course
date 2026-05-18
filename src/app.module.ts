@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import z from 'zod';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
+import { CacheModule } from './cache/cache.module.js';
 import { CatsModule } from './cats/cats.module.js';
 import { CustomerModule } from './customer/customer.module.js';
 import { DatabaseModule } from './database/database.module.js';
@@ -15,6 +16,10 @@ import { StudentModule } from './student/student.module.js';
     CustomerModule,
     StudentModule,
     GlobalModule,
+    // CacheModule.register({
+    //   isGlobal: true,
+    //   ttl: 30 * 1000, // 30 seconds. by defualt is 50 seconds
+    // }),
     ConfigModule.forRoot({
       cache: true,
       isGlobal: true,
@@ -24,11 +29,13 @@ import { StudentModule } from './student/student.module.js';
             JWT_SECRET_KEY: z.string(),
             PORT: z.literal('3000', { message: 'PORT must be 3000' }),
             DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
+            REDIS_URL: z.string().min(1, 'REDIS_URL is required'),
           })
           .parse(config);
       },
     }),
     DatabaseModule,
+    CacheModule,
   ],
   controllers: [AppController],
   providers: [AppService, Logger],

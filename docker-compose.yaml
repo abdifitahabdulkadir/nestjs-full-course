@@ -11,5 +11,12 @@ services:
     volumes:
       - postgres_data:/var/lib
 
+  redis:
+    image: redis:alpine
+    container_name: nest-redis
+    command: redis-server --requirepass admin
+    ports:
+      - 6379:6379
+
 volumes:
   postgres_data:

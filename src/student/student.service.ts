@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class StudentService {
+  // constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
   students = [
     {
       id: 1,
@@ -20,7 +21,12 @@ export class StudentService {
     },
   ];
 
-  getStudents() {
+  async getStudents() {
+    return await this.getStudentsFromDatabase();
+  }
+
+  async getStudentsFromDatabase() {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     return this.students;
   }
 }
